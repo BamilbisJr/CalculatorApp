@@ -2,7 +2,9 @@
 #include <string>
 using namespace std;
 
+bool ReadInEquation(double &first, double &second, char &op);
 
+double InterpretEquation(double &first, double &second, char &op);
 
 int main()
 {
@@ -13,39 +15,57 @@ int main()
 	cout << "Welcome to LucyCalc, the best online calculator. Type 'exit' to leave the calculator." << endl;
 
 	while (sentinel != "exit") {
-		cout << "Equation here: ";
-		char firstTyped = cin.peek();
-		if (firstTyped == 'E' || firstTyped == 'e') {
-			sentinel = "exit";
+		if (ReadInEquation(firstNum, secondNum, op))
+		{
+			cout << "The answer is: " << InterpretEquation(firstNum, secondNum, op) << endl;
 		}
 		else {
-			cin >> firstNum >> op >> secondNum;
-			cin.ignore(256, '\n');
-			if (op == '+')
-			{
-				answer = firstNum + secondNum;
-			}
-			else if (op == '-')
-			{
-				answer = firstNum - secondNum;
-			}
-			else if (op == '*')
-			{
-				answer = firstNum * secondNum;
-			}
-			else if (op == '/')
-			{
-				answer = firstNum / secondNum;
-			}
-			else
-			{
-				cout << "Not a valid operator" << endl;
-			}
-
-			cout << "The answer is: " << answer << endl;
+			sentinel = "exit";
 		}
 	}
+		
 	cout << "Goodbye" << endl;
 	return 0;
 }
 
+bool ReadInEquation(double &first, double &second, char &op)
+{
+	cout << "Equation here: ";
+	char firstTyped = cin.peek();
+	if (firstTyped == 'E' || firstTyped == 'e') {
+		return false;
+	}
+	else {
+		cin >> first >> op >> second;
+		cin.ignore(256, '\n');
+		return true;
+	}
+}
+
+double InterpretEquation(double &first, double &second, char &op)
+{
+	int solution = -1;
+
+	if (op == '+')
+	{
+		solution = first + second;
+	}
+	else if (op == '-')
+	{
+		solution = first - second;
+	}
+	else if (op == '*')
+	{
+		solution = first * second;
+	}
+	else if (op == '/')
+	{
+		solution = first / second;
+	}
+	else
+	{
+		cout << "Not a valid operator. Displayed answer has no meaning." << endl;
+	}
+
+	return solution;
+}
