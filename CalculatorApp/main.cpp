@@ -1,5 +1,6 @@
 #include <iostream>
 #include <string>
+#include "StorageQueue.h"
 using namespace std;
 
 bool ReadInEquation(double &first, double &second, char &op);
